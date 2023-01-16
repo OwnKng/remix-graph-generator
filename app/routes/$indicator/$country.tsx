@@ -2,7 +2,7 @@ import { useLoaderData } from "@remix-run/react"
 import ChartWrapper from "~/components/ChartWrapper"
 import { fetchWorldBankData } from "~/util"
 
-export async function loader({ params }) {
+export async function loader({ params }: any) {
   const { indicator, country } = params
 
   const data = await fetchWorldBankData(country, indicator)

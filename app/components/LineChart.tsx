@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import { scaleLinear, scaleOrdinal } from "@visx/scale"
-import { cumsum, extent, group } from "d3-array"
+import { extent, group } from "d3-array"
 import { AxisBottom, AxisLeft } from "@visx/axis"
 import { LinePath } from "@visx/shape"
 import { curveLinear } from "@visx/curve"
@@ -44,11 +44,8 @@ type LineChartType = {
   }
 }
 
-const LineChart = forwardRef(
-  (
-    { data, width, height, margin = defaultMargin, x, y, color }: LineChartType,
-    ref
-  ) => {
+const LineChart = forwardRef<SVGElement | null, LineChartType>(
+  ({ data, width, height, margin = defaultMargin, x, y, color }, ref) => {
     // dimensions
     const innerWidth = width - margin.left - margin.right
     const innerHeight = height - margin.top - margin.bottom
@@ -89,17 +86,22 @@ const LineChart = forwardRef(
 
     //* legend
     const cumSum = (
-      (sum) => (value) =>
+      (sum) => (value: number) =>
         (sum += value)
     )(0)
 
-    const widths = keys.map((key) => 25 + getStringWidth(key))
+    const widths = keys.map((key) => 25 + (getStringWidth(key) ?? 0))
     const offsets = widths.map((width, i, arr) =>
       Math.round(cumSum(width) - arr[i])
     )
 
     return (
-      <svg ref={ref} width={width} height={height}>
+      <svg
+        //@ts-ignore
+        ref={ref}
+        width={width}
+        height={height}
+      >
         <rect x={0} y={0} width={width} height={height} fill='#12182b' />
         <g transform={`translate(${margin.left},${margin.top})`}>
           <GridRows
@@ -120,7 +122,7 @@ const LineChart = forwardRef(
               textAnchor: "middle",
               verticalAnchor: "end",
               fill: "white",
-              fontFamily: "ui-sans-serif",
+              fontFamily: "sans-serif",
             })}
           />
           <AxisLeft
@@ -135,7 +137,7 @@ const LineChart = forwardRef(
               textAnchor: "start",
               verticalAnchor: "end",
               fill: "white",
-              fontFamily: "ui-sans-serif",
+              fontFamily: "sans-serif",
             })}
           />
 
@@ -173,6 +175,7 @@ const LineChart = forwardRef(
                 verticalAnchor='middle'
                 fontSize={12}
                 fill='white'
+                fontFamily='sans-serif'
               >
                 {key}
               </Text>

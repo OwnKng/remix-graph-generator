@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --color-background: rgb(7, 9, 15);
+    --color-foreground: #12182b;
+  }
+}

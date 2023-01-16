@@ -11,6 +11,13 @@ export const getIsoCodes = (countryName: string) =>
 export const getIndicatorCode = (indicatorName: string) =>
   indicators.find((i) => i.indicator === indicatorName)?.indicator_id
 
+export type WBDataPoint = {
+  date: number
+  country: string
+  indicator: string
+  value: number | null
+}
+
 const getNumberOfPages = async (url: string) =>
   await fetch(url)
     .then((response) => response.json())
@@ -46,7 +53,17 @@ export const fetchWorldBankData = async (
     (_, i) => `${url}&page=${i + 1}`
   )
 
-  return Promise.all(urls.map(async (url) => await getData(url))).then((data) =>
-    data.reduce((acc, cur) => acc.concat(cur), [])
-  )
+  return Promise.all(urls.map(async (url) => await getData(url)))
+    .then((data) =>
+      data
+        .reduce((acc, cur) => acc.concat(cur), [])
+        .slice()
+        .sort((a: WBDataPoint, b: WBDataPoint) => a.date - b.date)
+    )
+    .then((data) => {
+      if (!data.every((d) => d.value === null)) return data
+
+      throw new Error("No data")
+    })
+    .catch((e) => console.log(e))
 }

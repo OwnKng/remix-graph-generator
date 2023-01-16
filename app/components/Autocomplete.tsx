@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react"
+import { useState } from "react"
 import { useCombobox } from "downshift"
 
 export default function Autocomplete({
@@ -6,14 +6,16 @@ export default function Autocomplete({
   placeholder = "",
   options,
   onChange,
+  initialValue = "",
 }: {
   label: string
   placeholder?: string
   options: string[]
   onChange: (s: string) => void
+  initialValue?: string
 }) {
   const [items, setItems] = useState(options)
-  const [selectedItem, setSelectedItem] = useState(null)
+  const [selectedItem, setSelectedItem] = useState(initialValue)
 
   const {
     isOpen,
@@ -43,18 +45,18 @@ export default function Autocomplete({
   return (
     <div className='w-full'>
       <div className='flex flex-col gap-1'>
-        <label className='font-bold' {...getLabelProps()}>
+        <label className='text-slate-50' {...getLabelProps()}>
           {label}
         </label>
         <div className='flex border border-slate-100 bg-white gap-0.5 shadow-sm rounded'>
           <input
             placeholder={placeholder}
-            className='w-full py-4 px-2 '
+            className='w-full py-4 px-2 outline-0'
             {...getInputProps()}
           />
           <button
             aria-label='toggle menu'
-            className='px-2'
+            className='px-4 py-2'
             type='button'
             {...getToggleButtonProps()}
           >

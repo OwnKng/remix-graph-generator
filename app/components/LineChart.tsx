@@ -77,7 +77,7 @@ const LineChart = forwardRef(
     const keys = [...new Set(data.map((d) => getColor(d)))]
     const colorScale = scaleOrdinal({
       domain: keys,
-      range: ["red", "blue", "yellow"],
+      range: ["#09bc8a", "#E86A92", "#C6DBF0", "#ECBA82", "#1098F7"],
     })
 
     // Line generator
@@ -102,17 +102,25 @@ const LineChart = forwardRef(
       <svg ref={ref} width={width} height={height}>
         <rect x={0} y={0} width={width} height={height} fill='#12182b' />
         <g transform={`translate(${margin.left},${margin.top})`}>
+          <GridRows
+            scale={yScale}
+            width={innerWidth}
+            numTicks={5}
+            stroke='#30374e'
+          />
           <AxisBottom
             scale={xScale}
             top={innerHeight}
             tickFormat={format("0")}
             numTicks={5}
             tickStroke='white'
+            stroke='white'
             tickLabelProps={() => ({
               fontSize: "10px",
               textAnchor: "middle",
               verticalAnchor: "end",
               fill: "white",
+              fontFamily: "ui-sans-serif",
             })}
           />
           <AxisLeft
@@ -127,14 +135,10 @@ const LineChart = forwardRef(
               textAnchor: "start",
               verticalAnchor: "end",
               fill: "white",
+              fontFamily: "ui-sans-serif",
             })}
           />
-          <GridRows
-            scale={yScale}
-            width={innerWidth}
-            numTicks={5}
-            stroke='white'
-          />
+
           {keys.map((key) => (
             <LinePath
               key={`line-${key}`}

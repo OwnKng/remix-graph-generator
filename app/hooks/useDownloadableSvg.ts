@@ -14,13 +14,15 @@ export const useDownloadableSvg = () => {
 
     const b64str = window.URL.createObjectURL(svgData)
 
-    const w = svgRef.clientWidth
-    const h = svgRef.clientHeight
+    const w = svgRef.clientWidth * 2
+    const h = svgRef.clientHeight * 2
 
     const canvas = document.createElement("canvas")
     canvas.width = w
     canvas.height = h
+
     const ctx = canvas.getContext("2d")
+    ctx?.scale(2, 2)
 
     const image = new Image()
 

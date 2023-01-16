@@ -37,7 +37,7 @@ export default function App() {
               <Select />
             </div>
           </div>
-          <div className='flex w-full py-4 items-center justify-center min-[450px] shadow bg-fg px-1'>
+          <div className='flex w-full py-4 items-center justify-center min-h-[450px] shadow bg-fg px-1'>
             <Outlet />
           </div>
         </main>

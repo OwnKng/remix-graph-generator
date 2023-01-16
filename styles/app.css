@@ -8,3 +8,7 @@
     --color-foreground: #12182b;
   }
 }
+
+body {
+  min-height: 100vh;
+}

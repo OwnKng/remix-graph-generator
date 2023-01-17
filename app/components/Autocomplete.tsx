@@ -26,6 +26,7 @@ export default function Autocomplete({
     highlightedIndex,
     getItemProps,
   } = useCombobox({
+    id: "autocomplete",
     onInputValueChange({ inputValue }) {
       setItems(
         options.filter(

@@ -34,18 +34,11 @@ export default function Viz() {
 export function ErrorBoundary({ error }) {
   console.error(error)
   return (
-    <html>
-      <head>
-        <title>Oh no!</title>
-      </head>
-      <body>
-        <div className='w-full flex place-center justify-center  max-w-[720px]'>
-          <p>
-            We were unable to fetch the requested data. Please try again or
-            select another indicator or country.
-          </p>
-        </div>
-      </body>
-    </html>
+    <div className='w-full flex place-center justify-center  max-w-[720px]'>
+      <p>
+        We were unable to fetch the requested data. Please try again or select
+        another indicator or country.
+      </p>
+    </div>
   )
 }

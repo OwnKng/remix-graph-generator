@@ -62,6 +62,7 @@ export default function Multiselection({
     getItemProps,
     selectedItem,
   } = useCombobox({
+    id: "combobox",
     items,
     itemToString(item) {
       return item ? item : ""

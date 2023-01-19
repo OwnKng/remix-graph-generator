@@ -68,7 +68,7 @@ export default function Autocomplete({
       <div className='relative w-full'>
         <ul
           {...getMenuProps()}
-          className='absolute p-0 bg-white shadow-md max-h-80 overflow-scroll w-full shadow divide-y divide-slate-300'
+          className='absolute p-0 bg-white shadow-md max-h-80 overflow-scroll overflow-x-hidden w-full shadow divide-y divide-slate-300'
         >
           {isOpen &&
             items.map((item, index) => (
